@@ -48,3 +48,19 @@
 ;#load-if-defined/#load-if-not-defined/#else/#end-if 为条件性读取，可嵌套50层
 
 ;系统定义符号：有些符号在未勾选的时候不会出现。广域符号所有人可见，内域符号可见性取决于用户
+
+;仅执行一次的动作可以这么定义：
+(defrule
+    (true)
+    =>
+    (enabled-wall-placement 2)
+    (disable-self)
+)
+
+;定义随机数：1-100之间的整数
+(defrule 
+   (true)
+   =>
+   (generate-random-number 100)
+   (disable-self)
+)
