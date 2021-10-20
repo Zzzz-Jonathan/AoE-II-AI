@@ -39,11 +39,8 @@
 (load "script.exp");需要在同级目录下
 
 ;load-random可以在给出的script中按照给定概率读取
-(load-random 20"script1"
-             30"script2"
-             40"script3"
-             "script4"          
-);4的概率为10%
+(load-random 20"script1" 30"script2" 40"script3" "script4")
+;4的概率为10%
 
 ;#load-if-defined/#load-if-not-defined/#else/#end-if 为条件性读取，可嵌套50层
 
@@ -62,5 +59,26 @@
    (true)
    =>
    (generate-random-number 100)
+   (disable-self)
+)
+
+;any和every的应用
+(defrule 
+                (players-current-age any-enemy == imperial-age)
+                =>
+                (chat-to-allies "至少有一個敵人已經進入帝王時代了！")
+)
+
+(defrule 
+                (players-current-age every-enemy == imperial-age)
+                =>
+	  (chat-to-allies "所有敵人都已經進入帝王時代了！")
+)
+
+;'this-'变量会被之前的百搭参数赋值，例子如下：
+(defrule
+   (players-civ any-enemy gothic) 
+   =>
+   (chat-to-player this-any-enemy "我知道你是哥德人！");该rule用完之后该变量便会失效
    (disable-self)
 )
